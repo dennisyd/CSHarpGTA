@@ -57,6 +57,7 @@ namespace CSharpGTA
         private static void StartThread()
         {
             isQuitting = false;
+            totalScreenGrabs = 0;
             thread = new Thread(() =>
             {
                 Console.WriteLine("Capturing screens of size: {0}x{1}", width, height);
@@ -92,12 +93,12 @@ namespace CSharpGTA
 
         private static void ThreadingMethod()
         {
-            Bitmap bmp = new Bitmap(width, height, PixelFormat.Format32bppPArgb);
+            Bitmap bmp = new Bitmap(width, height, PixelFormat.Format32bppArgb);
             while (!isQuitting)
             {
                 currentFrame = captureScreen(ref bmp, false);
                 mat = OpenCvSharp.Extensions.BitmapConverter.ToMat(currentFrame);
-                Thread.Sleep(5);
+                Thread.Sleep(1);
             }
         }
 
